@@ -7,7 +7,7 @@ elseif (UNIX)
 endif ()
 project(RapidOcrOnnx)
 
-# Output BIN JNI CLIB
+# Output BIN JNI CLIB CSTATICLIB
 if (NOT DEFINED OCR_OUTPUT)
     set(OCR_OUTPUT "BIN")
     message(STATUS "No OCR_OUTPUT, defaulting to BIN")
@@ -86,6 +86,10 @@ elseif (OCR_OUTPUT STREQUAL "CLIB") # CLIB
     add_library(RapidOcrOnnx SHARED ${OCR_COMPILE_CODE})
     target_compile_definitions(RapidOcrOnnx PRIVATE __CLIB__)
     target_link_libraries(RapidOcrOnnx ${OnnxRuntime_LIBS} ${OpenCV_LIBS})
+elseif (OCR_OUTPUT STREQUAL "CSTATICLIB") # CSTATICLIB
+    add_library(RapidOcrOnnx STATIC ${OCR_COMPILE_CODE})
+    target_compile_definitions(RapidOcrOnnx PRIVATE __CSTATICLIB__)
+    target_link_libraries(RapidOcrOnnx ${OnnxRuntime_LIBS} ${OpenCV_LIBS})
 elseif (OCR_OUTPUT STREQUAL "BIN") # BIN
     add_executable(RapidOcrOnnx ${OCR_COMPILE_CODE})
     target_compile_definitions(RapidOcrOnnx PRIVATE __EXEC__)
@@ -93,7 +97,7 @@ elseif (OCR_OUTPUT STREQUAL "BIN") # BIN
 endif ()
 
 install(TARGETS RapidOcrOnnx EXPORT RapidOcrOnnx)
-if (OCR_OUTPUT STREQUAL "CLIB") # CLIB
+if (OCR_OUTPUT STREQUAL "CLIB" OR OCR_OUTPUT STREQUAL "CSTATICLIB") # CLIB
     file(GLOB OCR_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
     install(FILES ${OCR_INCLUDE} DESTINATION include)
 endif ()

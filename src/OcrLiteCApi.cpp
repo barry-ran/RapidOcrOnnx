@@ -1,4 +1,4 @@
-#ifdef __CLIB__
+#if defined(__CLIB__) || defined(__CSTATICLIB__)
 
 #include "OcrLiteCApi.h"
 #include "OcrLiteImpl.h"

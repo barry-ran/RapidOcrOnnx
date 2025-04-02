@@ -16,11 +16,12 @@ else (echo 输入错误！Input Error!)
 echo.
 
 echo "请注意：如果选择2)JNI动态库时，必须安装配置Oracle JDK"
-echo "请选择编译输出类型并回车: 1)BIN可执行文件，2)JNI动态库，3)C动态库"
+echo "请选择编译输出类型并回车: 1)BIN可执行文件，2)JNI动态库，3)C动态库, 4)C静态库"
 set /p flag=
 if %flag% == 1 (set BUILD_OUTPUT="BIN")^
 else if %flag% == 2 (set BUILD_OUTPUT="JNI")^
 else if %flag% == 3 (set BUILD_OUTPUT="CLIB")^
+else if %flag% == 4 (set BUILD_OUTPUT="CSTATICLIB")^
 else (echo 输入错误！Input Error!)
 echo.
 

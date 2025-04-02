@@ -1,5 +1,5 @@
 #ifndef __JNI__
-#ifndef __CLIB__
+#if !defined(__CLIB__) && !defined(__CSTATICLIB__)
 #include <cstdio>
 #include "main.h"
 #include "version.h"

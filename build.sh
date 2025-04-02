@@ -23,6 +23,8 @@ elif [ $BUILD_OUTPUT == 2 ]; then
   BUILD_OUTPUT="JNI"
 elif [ $BUILD_OUTPUT == 3 ]; then
   BUILD_OUTPUT="CLIB"
+elif [ $BUILD_OUTPUT == 4 ]; then
+  BUILD_OUTPUT="CSTATICLIB"
 else
   echo -e "输入错误！Input Error!"
 fi

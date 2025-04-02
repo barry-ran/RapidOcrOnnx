@@ -12,7 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         list:
-          - { win_ver: 2019, vs_name: vs2019, vs_ver: v142 }
           - { win_ver: 2022, vs_name: vs2022, vs_ver: v143 }
 
     runs-on: windows-${{ matrix.list.win_ver }}
@@ -20,13 +19,14 @@ jobs:
     name: windows-${{ matrix.list.vs_name }}
 
     env:
-      ONNX_VERSION: 1.15.1
-      ONNX_PKG_NAME: onnxruntime-1.15.1-windows-${{ matrix.list.vs_name }}-static-mt
-      CV_VERSION: 4.8.1
-      CV_PKG_NAME: opencv-4.8.1-windows-${{ matrix.list.vs_name }}-mt
+      ONNX_VERSION: 1.21.0
+      ONNX_PKG_NAME: onnxruntime-1.21.0-windows-${{ matrix.list.vs_name }}-static-mt
+      CV_VERSION: 4.11.0
+      CV_PKG_NAME: opencv-4.11.0-windows-${{ matrix.list.vs_name }}-mt
       BIN_PKG_NAME: windows-bin-${{ matrix.list.vs_name }}-mt
       JNI_PKG_NAME: windows-jni-${{ matrix.list.vs_name }}-mt
       CLIB_PKG_NAME: windows-clib-${{ matrix.list.vs_name }}-mt
+      CSTATIC_PKG_NAME: windows-cstatic-${{ matrix.list.vs_name }}-mt
 
     steps:
       # 检出代码
@@ -72,6 +72,11 @@ jobs:
           mv win-CLIB-CPU-Win32/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-Win32
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
           7z a ${{ env.CLIB_PKG_NAME }}.7z ${{ env.CLIB_PKG_NAME }}
+          mkdir ${{ env.CSTATIC_PKG_NAME }}
+          mv win-CSTATIC-CPU-x64/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-x64
+          mv win-CSTATIC-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-Win32
+          cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
+          7z a ${{ env.CSTATIC_PKG_NAME }}.7z ${{ env.CSTATIC_PKG_NAME }}
 
       # 上传artifact
       - name: upload

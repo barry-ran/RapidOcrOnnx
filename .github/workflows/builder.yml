@@ -143,14 +143,14 @@ jobs:
           name: macos-clib
           path: macos-clib.7z
 
-  windows-vs2019:
-    runs-on: windows-2019
+  windows-vs2022:
+    runs-on: windows-2022
 
     env:
       ONNX_VERSION: 1.14.0
-      ONNX_PKG_NAME: onnxruntime-1.14.0-vs2019-static-mt
+      ONNX_PKG_NAME: onnxruntime-1.14.0-vs2022-static-mt
       CV_VERSION: 4.6.0
-      CV_PKG_NAME: opencv-4.6.0-windows-vs2019-mt
+      CV_PKG_NAME: opencv-4.6.0-windows-vs2022-mt
 
     steps:
       # 检出代码
@@ -193,6 +193,10 @@ jobs:
           mv win-CLIB-CPU-x64/install windows-clib/win-CLIB-CPU-x64
           mv win-CLIB-CPU-Win32/install windows-clib/win-CLIB-CPU-Win32
           7z a windows-clib.7z windows-clib
+          mkdir windows-cstaticlib
+          mv win-CSTATICLIB-CPU-x64/install windows-cstaticlib/win-CSTATICLIB-CPU-x64
+          mv win-CSTATICLIB-CPU-Win32/install windows-cstaticlib/win-CSTATICLIB-CPU-Win32
+          7z a windows-cstaticlib.7z windows-cstaticlib        
 
       # 上传artifact
       - name: upload
@@ -214,7 +218,7 @@ jobs:
           path: windows-clib.7z
 
   release:
-    needs: [ ubuntu1804, macos1015, windows-vs2019 ]
+    needs: [ ubuntu1804, macos1015, windows-vs2022 ]
 
     runs-on: ubuntu-latest
 

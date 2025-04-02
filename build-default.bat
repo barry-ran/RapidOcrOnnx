@@ -72,4 +72,24 @@ cmake --build . --config Release -j %NUMBER_OF_PROCESSORS%
 cmake --build . --config Release --target install
 popd
 
+mkdir win-CSTATICLIB-CPU-x64
+pushd win-CSTATICLIB-CPU-x64
+cmake -T "%VS_VER%,host=x64" -A "x64" ^
+  -DCMAKE_INSTALL_PREFIX=install ^
+  -DCMAKE_BUILD_TYPE=Release -DOCR_OUTPUT="CSTATICLIB" ^
+  -DOCR_BUILD_CRT="True" -DOCR_ONNX="CPU" ..
+cmake --build . --config Release -j %NUMBER_OF_PROCESSORS%
+cmake --build . --config Release --target install
+popd
+
+mkdir win-CSTATICLIB-CPU-Win32
+pushd win-CSTATICLIB-CPU-Win32
+cmake -T "%VS_VER%,host=x64" -A "Win32" ^
+  -DCMAKE_INSTALL_PREFIX=install ^
+  -DCMAKE_BUILD_TYPE=Release -DOCR_OUTPUT="CSTATICLIB" ^
+  -DOCR_BUILD_CRT="True" -DOCR_ONNX="CPU" ..
+cmake --build . --config Release -j %NUMBER_OF_PROCESSORS%
+cmake --build . --config Release --target install
+popd
+
 @ENDLOCAL

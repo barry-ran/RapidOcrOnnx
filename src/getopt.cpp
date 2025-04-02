@@ -6,7 +6,7 @@
  * Released under the MIT license
  * https://github.com/takamin/win-c/blob/master/LICENSE
  */
-#ifndef  __CLIB__
+#if !defined(__CLIB__) && !defined(__CSTATICLIB__)
 
 #include <stdio.h>
 #include <string.h>

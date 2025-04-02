@@ -5,7 +5,7 @@
 extern "C"
 {
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(__CSTATICLIB__)
 #ifdef __CLIB__
 #define _QM_OCR_API __declspec(dllexport)
 #else
