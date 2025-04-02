@@ -1,5 +1,9 @@
 # 编译说明
 
+### 其他下载
+- [模型列表](https://rapidai.github.io/RapidOCRDocs/model_list/)
+- [RapidOcrOnnxLibTest 调用动态库的demo](https://github.com/RapidAI/RapidOcrOnnxLibTest)
+
 ### 依赖的第三方库下载
 
 1. 下载opencv，[下载地址](https://github.com/RapidAI/OpenCVBuilder/releases)
