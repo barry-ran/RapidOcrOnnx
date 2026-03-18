@@ -54,19 +54,19 @@ jobs:
 
       # 上传artifact
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: linux-bin
           path: linux-bin.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: linux-jni
           path: linux-jni.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: linux-clib
           path: linux-clib.7z
@@ -126,19 +126,19 @@ jobs:
 
       # 上传artifact
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: macos-bin
           path: macos-bin.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: macos-jni
           path: macos-jni.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: macos-clib
           path: macos-clib.7z
@@ -200,19 +200,19 @@ jobs:
 
       # 上传artifact
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: windows-bin
           path: windows-bin.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: windows-jni
           path: windows-jni.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: windows-clib
           path: windows-clib.7z

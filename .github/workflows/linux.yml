@@ -93,19 +93,19 @@ jobs:
 
       # 上传artifact
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.BIN_PKG_NAME }}
           path: ${{ env.BIN_PKG_NAME }}.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.JNI_PKG_NAME }}
           path: ${{ env.JNI_PKG_NAME }}.7z
 
       - name: upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.CLIB_PKG_NAME }}
           path: ${{ env.CLIB_PKG_NAME }}.7z
