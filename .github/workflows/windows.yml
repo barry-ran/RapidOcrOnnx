@@ -37,7 +37,9 @@ jobs:
         run: |
           cd onnxruntime-static
             Invoke-WebRequest -Uri https://github.com/RapidAI/OnnxruntimeBuilder/releases/download/${{ env.ONNX_VERSION }}/${{ env.ONNX_PKG_NAME }}.7z -OutFile ${{ env.ONNX_PKG_NAME }}.7z
-            7z x ${{ env.ONNX_PKG_NAME }}.7z -aoa
+            7z x ${{ env.ONNX_PKG_NAME }}.7z -owindows-x64 -aoa -y
+            mv windows-x64/${{ env.ONNX_PKG_NAME }}/* windows-x64/
+            rmdir windows-x64/${{ env.ONNX_PKG_NAME }}          
 
       # 下载opencv-static
       - name: download opencv-static
