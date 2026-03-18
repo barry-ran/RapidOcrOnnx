@@ -22,7 +22,7 @@ jobs:
       ONNX_VERSION: 1.21.0
       ONNX_PKG_NAME: onnxruntime-v1.21.0-windows-${{ matrix.list.vs_name }}-x64-static-mt
       CV_VERSION: 4.11.0
-      CV_PKG_NAME: opencv-4.11.0-windows-${{ matrix.list.vs_name }}-mt
+      CV_PKG_NAME: opencv-4.11.0-windows-${{ matrix.list.vs_name }}-x64-mt
       BIN_PKG_NAME: windows-bin-${{ matrix.list.vs_name }}-mt
       JNI_PKG_NAME: windows-jni-${{ matrix.list.vs_name }}-mt
       CLIB_PKG_NAME: windows-clib-${{ matrix.list.vs_name }}-mt
