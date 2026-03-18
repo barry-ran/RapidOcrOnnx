@@ -42,7 +42,7 @@ jobs:
 
     steps:
       # 检出代码
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       # 部署musl
       - name: deploy musl

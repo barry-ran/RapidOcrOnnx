@@ -15,7 +15,7 @@ jobs:
 
     steps:
       # 检出代码
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       # 下载onnxruntime-static
       - name: download onnxruntime-static
@@ -82,7 +82,7 @@ jobs:
 
     steps:
       # 检出代码
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       # 安装openmp
       - name: install openmp
@@ -154,7 +154,7 @@ jobs:
 
     steps:
       # 检出代码
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       # 下载onnxruntime-static
       - name: download onnxruntime-static
@@ -224,7 +224,7 @@ jobs:
 
     steps:
       # 检出代码
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       # 获取所有的git log和tag
       - name: Unshallow
