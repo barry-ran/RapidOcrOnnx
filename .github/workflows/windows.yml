@@ -89,17 +89,23 @@ jobs:
           name: ${{ env.BIN_PKG_NAME }}
           path: ${{ env.BIN_PKG_NAME }}.7z
 
-      - name: upload
-        uses: actions/upload-artifact@v7
-        with:
-          name: ${{ env.JNI_PKG_NAME }}
-          path: ${{ env.JNI_PKG_NAME }}.7z
+      # - name: upload
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: ${{ env.JNI_PKG_NAME }}
+      #     path: ${{ env.JNI_PKG_NAME }}.7z
 
       - name: upload
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.CLIB_PKG_NAME }}
           path: ${{ env.CLIB_PKG_NAME }}.7z
+
+      - name: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.CSTATIC_PKG_NAME }}
+          path: ${{ env.CSTATIC_PKG_NAME }}.7z
 
   release:
     needs: [ windows ]
@@ -133,7 +139,7 @@ jobs:
 
       # 下载artifact
       - name: download
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v8
         with:
           path: artifacts
 
