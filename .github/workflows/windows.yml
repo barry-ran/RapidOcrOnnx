@@ -63,22 +63,22 @@ jobs:
           cp run-test.bat ${{ env.BIN_PKG_NAME }}/run-test.bat
           cp -r images ${{ env.BIN_PKG_NAME }}/images
           mv win-BIN-CPU-x64/install/bin ${{ env.BIN_PKG_NAME }}/win-BIN-CPU-x64
-          mv win-BIN-CPU-Win32/install/bin ${{ env.BIN_PKG_NAME }}/win-BIN-CPU-Win32
+          # mv win-BIN-CPU-Win32/install/bin ${{ env.BIN_PKG_NAME }}/win-BIN-CPU-Win32
           cp others/README-bin.txt ${{ env.BIN_PKG_NAME }}/README.txt
           7z a ${{ env.BIN_PKG_NAME }}.7z ${{ env.BIN_PKG_NAME }}
-          mkdir ${{ env.JNI_PKG_NAME }}
-          mv win-JNI-CPU-x64/install ${{ env.JNI_PKG_NAME }}/win-JNI-CPU-x64
-          mv win-JNI-CPU-Win32/install ${{ env.JNI_PKG_NAME }}/win-JNI-CPU-Win32
-          cp others/README-jni.txt ${{ env.JNI_PKG_NAME }}/README.txt
-          7z a ${{ env.JNI_PKG_NAME }}.7z ${{ env.JNI_PKG_NAME }}
+          # mkdir ${{ env.JNI_PKG_NAME }}
+          # mv win-JNI-CPU-x64/install ${{ env.JNI_PKG_NAME }}/win-JNI-CPU-x64
+          # mv win-JNI-CPU-Win32/install ${{ env.JNI_PKG_NAME }}/win-JNI-CPU-Win32
+          # cp others/README-jni.txt ${{ env.JNI_PKG_NAME }}/README.txt
+          # 7z a ${{ env.JNI_PKG_NAME }}.7z ${{ env.JNI_PKG_NAME }}
           mkdir ${{ env.CLIB_PKG_NAME }}
           mv win-CLIB-CPU-x64/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-x64
-          mv win-CLIB-CPU-Win32/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-Win32
+          # mv win-CLIB-CPU-Win32/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-Win32
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
           7z a ${{ env.CLIB_PKG_NAME }}.7z ${{ env.CLIB_PKG_NAME }}
           mkdir ${{ env.CSTATIC_PKG_NAME }}
           mv win-CSTATIC-CPU-x64/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-x64
-          mv win-CSTATIC-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-Win32
+          # mv win-CSTATIC-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-Win32
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
           7z a ${{ env.CSTATIC_PKG_NAME }}.7z ${{ env.CSTATIC_PKG_NAME }}
 
