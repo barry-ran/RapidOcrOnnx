@@ -11,14 +11,13 @@ jobs:
     runs-on: macos-latest
 
     env:
-      ONNX_VERSION: 1.15.1
-      ONNX_PKG_NAME: onnxruntime-1.15.1-macos-static
-      CV_VERSION: 4.8.1
-      CV_PKG_NAME: opencv-4.8.1-macos
+      ONNX_VERSION: 1.21.0
+      ONNX_PKG_NAME: onnxruntime-v1.21.0-macos-13-x86_64-static
+      CV_VERSION: 4.11.0
+      CV_PKG_NAME: opencv-4.11.0-macos-13-x86_64
       BIN_PKG_NAME: macos-bin
       JNI_PKG_NAME: macos-jni
       CLIB_PKG_NAME: macos-clib
-
 
     steps:
       # 检出代码
@@ -29,14 +28,18 @@ jobs:
         run: |
           cd onnxruntime-static
           wget https://github.com/RapidAI/OnnxruntimeBuilder/releases/download/${{ env.ONNX_VERSION }}/${{ env.ONNX_PKG_NAME }}.7z -O ${{ env.ONNX_PKG_NAME }}.7z
-          7z x ${{ env.ONNX_PKG_NAME }}.7z -aoa
+          7z x ${{ env.ONNX_PKG_NAME }}.7z -omacos -aoa -y
+          mv macos/${{ env.ONNX_PKG_NAME }}/* macos/
+          rmdir macos/${{ env.ONNX_PKG_NAME }}
 
       # 下载opencv-static
       - name: download opencv-static
         run: |
           cd opencv-static
           wget https://github.com/RapidAI/OpenCVBuilder/releases/download/${{ env.CV_VERSION }}/${{ env.CV_PKG_NAME }}.7z -O ${{ env.CV_PKG_NAME }}.7z
-          7z x ${{ env.CV_PKG_NAME }}.7z -aoa
+          7z x ${{ env.CV_PKG_NAME }}.7z -omacos -aoa -y
+          mv macos/${{ env.CV_PKG_NAME }}/* macos/
+          rmdir macos/${{ env.CV_PKG_NAME }}
 
       # 编译
       - name: build
@@ -53,10 +56,10 @@ jobs:
           mv Darwin-BIN-CPU/install/bin ${{ env.BIN_PKG_NAME }}/Darwin-BIN-CPU
           cp others/README-bin.txt ${{ env.BIN_PKG_NAME }}/README.txt
           7z a ${{ env.BIN_PKG_NAME }}.7z ${{ env.BIN_PKG_NAME }}
-          mkdir ${{ env.JNI_PKG_NAME }}
-          mv Darwin-JNI-CPU/install ${{ env.JNI_PKG_NAME }}/Darwin-JNI-CPU
-          cp others/README-jni.txt ${{ env.JNI_PKG_NAME }}/README.txt
-          7z a ${{ env.JNI_PKG_NAME }}.7z ${{ env.JNI_PKG_NAME }}
+          # mkdir ${{ env.JNI_PKG_NAME }}
+          # mv Darwin-JNI-CPU/install ${{ env.JNI_PKG_NAME }}/Darwin-JNI-CPU
+          # cp others/README-jni.txt ${{ env.JNI_PKG_NAME }}/README.txt
+          # 7z a ${{ env.JNI_PKG_NAME }}.7z ${{ env.JNI_PKG_NAME }}
           mkdir ${{ env.CLIB_PKG_NAME }}
           mv Darwin-CLIB-CPU/install ${{ env.CLIB_PKG_NAME }}/Darwin-CLIB-CPU
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
@@ -69,11 +72,11 @@ jobs:
           name: ${{ env.BIN_PKG_NAME }}
           path: ${{ env.BIN_PKG_NAME }}.7z
 
-      - name: upload
-        uses: actions/upload-artifact@v7
-        with:
-          name: ${{ env.JNI_PKG_NAME }}
-          path: ${{ env.JNI_PKG_NAME }}.7z
+      # - name: upload
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: ${{ env.JNI_PKG_NAME }}
+      #     path: ${{ env.JNI_PKG_NAME }}.7z
 
       - name: upload
         uses: actions/upload-artifact@v7

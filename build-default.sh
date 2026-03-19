@@ -8,12 +8,12 @@ function cmakeBuild() {
   cmake --build . --config Release --target install
   popd
 
-  mkdir -p ${sysOS}-JNI-CPU
-  pushd ${sysOS}-JNI-CPU
-  cmake -DCMAKE_INSTALL_PREFIX=install -DCMAKE_BUILD_TYPE=Release -DOCR_OUTPUT="JNI" -DOCR_ONNX="CPU" ..
-  cmake --build . --config Release -j $NUM_THREADS
-  cmake --build . --config Release --target install
-  popd
+  # mkdir -p ${sysOS}-JNI-CPU
+  # pushd ${sysOS}-JNI-CPU
+  # cmake -DCMAKE_INSTALL_PREFIX=install -DCMAKE_BUILD_TYPE=Release -DOCR_OUTPUT="JNI" -DOCR_ONNX="CPU" ..
+  # cmake --build . --config Release -j $NUM_THREADS
+  # cmake --build . --config Release --target install
+  # popd
 
   mkdir -p ${sysOS}-CLIB-CPU
   pushd ${sysOS}-CLIB-CPU
@@ -32,13 +32,13 @@ function cmakeCrossBuild() {
   cmake --build . --config Release --target install
   popd
 
-  mkdir -p ${sysOS}-JNI-CPU
-  pushd ${sysOS}-JNI-CPU
-  cmake -DCMAKE_TOOLCHAIN_FILE=../musl-cross.toolchain.cmake \
-    -DCMAKE_INSTALL_PREFIX=install -DCMAKE_BUILD_TYPE=Release -DOCR_OUTPUT="JNI" -DOCR_ONNX="CPU" ..
-  cmake --build . --config Release -j $NUM_THREADS
-  cmake --build . --config Release --target install
-  popd
+  # mkdir -p ${sysOS}-JNI-CPU
+  # pushd ${sysOS}-JNI-CPU
+  # cmake -DCMAKE_TOOLCHAIN_FILE=../musl-cross.toolchain.cmake \
+  #   -DCMAKE_INSTALL_PREFIX=install -DCMAKE_BUILD_TYPE=Release -DOCR_OUTPUT="JNI" -DOCR_ONNX="CPU" ..
+  # cmake --build . --config Release -j $NUM_THREADS
+  # cmake --build . --config Release --target install
+  # popd
 
   mkdir -p ${sysOS}-CLIB-CPU
   pushd ${sysOS}-CLIB-CPU
