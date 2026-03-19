@@ -8,16 +8,25 @@ on:
 
 jobs:
   macos:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        list:
+          - { runner: macos-latest, arch: arm64 }
+          - { runner: macos-13, arch: x86_64 }
+
+    runs-on: ${{ matrix.list.runner }}
+
+    name: macos-${{ matrix.list.arch }}
 
     env:
       ONNX_VERSION: 1.21.0
-      ONNX_PKG_NAME: onnxruntime-v1.21.0-macos-13-arm64-static
+      ONNX_PKG_NAME: onnxruntime-v1.21.0-macos-13-${{ matrix.list.arch }}-static
       CV_VERSION: 4.11.0
-      CV_PKG_NAME: opencv-4.11.0-macos-13-arm64
-      BIN_PKG_NAME: macos-bin
+      CV_PKG_NAME: opencv-4.11.0-macos-13-${{ matrix.list.arch }}
+      BIN_PKG_NAME: macos-bin-${{ matrix.list.arch }}
       JNI_PKG_NAME: macos-jni
-      CLIB_PKG_NAME: macos-clib
+      CLIB_PKG_NAME: macos-clib-${{ matrix.list.arch }}
 
     steps:
       # 检出代码
@@ -44,7 +53,7 @@ jobs:
       # 编译
       - name: build
         run: |
-          chmod a+x build-default.sh &&./build-default.sh
+          chmod a+x build-default.sh && ./build-default.sh
 
       # 压缩
       - name: 7z
@@ -84,6 +93,15 @@ jobs:
           name: ${{ env.CLIB_PKG_NAME }}
           path: ${{ env.CLIB_PKG_NAME }}.7z
 
+  release:
+    needs: [ macos ]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # 检出代码
+      - uses: actions/checkout@v6
+
       # 获取所有的git log和tag
       - name: Unshallow
         run: git fetch --prune --unshallow
@@ -105,15 +123,25 @@ jobs:
         run: |
           echo -e '${{ env.log_state }}' > release.md
 
+      # 下载artifact
+      - name: download
+        uses: actions/download-artifact@v8
+        with:
+          path: artifacts
+
+      # 查看artifact
+      - name: list artifact
+        run: |
+          tree artifacts
+
       # 创建release 上传release
-      # https://github.com/marketplace/actions/create-release
       - name: Create release and upload-archive
         uses: ncipollo/release-action@v1
         with:
           prerelease: true
           name: RapidOcrOnnx ${{ github.ref }}
           bodyFile: release.md
-          artifacts: macos-*.7z
+          artifacts: artifacts/*/*.7z
           allowUpdates: true
           artifactContentType: application/x-7z-compressed
           token: ${{ secrets.GITHUB_TOKEN }}
