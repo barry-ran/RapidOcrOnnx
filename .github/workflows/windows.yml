@@ -21,10 +21,11 @@ jobs:
     env:
       ONNX_VERSION: 1.21.0
       ONNX_PKG_NAME: onnxruntime-v1.21.0-windows-${{ matrix.list.vs_name }}-x64-static-mt
+      ONNX_X86_PKG_NAME: onnxruntime-v1.21.0-windows-${{ matrix.list.vs_name }}-x86-static-mt
       CV_VERSION: 4.11.0
       CV_PKG_NAME: opencv-4.11.0-windows-${{ matrix.list.vs_name }}-x64-mt
+      CV_X86_PKG_NAME: opencv-4.11.0-windows-${{ matrix.list.vs_name }}-x86-mt
       BIN_PKG_NAME: windows-bin-${{ matrix.list.vs_name }}-mt
-      JNI_PKG_NAME: windows-jni-${{ matrix.list.vs_name }}-mt
       CLIB_PKG_NAME: windows-clib-${{ matrix.list.vs_name }}-mt
       CSTATIC_PKG_NAME: windows-cstatic-${{ matrix.list.vs_name }}-mt
 
@@ -36,10 +37,14 @@ jobs:
       - name: download onnxruntime-static
         run: |
           cd onnxruntime-static
-            Invoke-WebRequest -Uri https://github.com/RapidAI/OnnxruntimeBuilder/releases/download/${{ env.ONNX_VERSION }}/${{ env.ONNX_PKG_NAME }}.7z -OutFile ${{ env.ONNX_PKG_NAME }}.7z
-            7z x ${{ env.ONNX_PKG_NAME }}.7z -owindows-x64 -aoa -y
-            mv windows-x64/${{ env.ONNX_PKG_NAME }}/* windows-x64/
-            rmdir windows-x64/${{ env.ONNX_PKG_NAME }}          
+          Invoke-WebRequest -Uri https://github.com/RapidAI/OnnxruntimeBuilder/releases/download/${{ env.ONNX_VERSION }}/${{ env.ONNX_PKG_NAME }}.7z -OutFile ${{ env.ONNX_PKG_NAME }}.7z
+          7z x ${{ env.ONNX_PKG_NAME }}.7z -owindows-x64 -aoa -y
+          mv windows-x64/${{ env.ONNX_PKG_NAME }}/* windows-x64/
+          rmdir windows-x64/${{ env.ONNX_PKG_NAME }}
+          Invoke-WebRequest -Uri https://github.com/RapidAI/OnnxruntimeBuilder/releases/download/${{ env.ONNX_VERSION }}/${{ env.ONNX_X86_PKG_NAME }}.7z -OutFile ${{ env.ONNX_X86_PKG_NAME }}.7z
+          7z x ${{ env.ONNX_X86_PKG_NAME }}.7z -owindows-x86 -aoa -y
+          mv windows-x86/${{ env.ONNX_X86_PKG_NAME }}/* windows-x86/
+          rmdir windows-x86/${{ env.ONNX_X86_PKG_NAME }}
 
       # 下载opencv-static
       - name: download opencv-static
@@ -49,6 +54,10 @@ jobs:
           7z x ${{ env.CV_PKG_NAME }}.7z -owindows-x64 -aoa -y
           mv windows-x64/${{ env.CV_PKG_NAME }}/* windows-x64/
           rmdir windows-x64/${{ env.CV_PKG_NAME }}
+          Invoke-WebRequest -Uri https://github.com/RapidAI/OpenCVBuilder/releases/download/${{ env.CV_VERSION }}/${{ env.CV_X86_PKG_NAME }}.7z -OutFile ${{ env.CV_X86_PKG_NAME }}.7z
+          7z x ${{ env.CV_X86_PKG_NAME }}.7z -owindows-x86 -aoa -y
+          mv windows-x86/${{ env.CV_X86_PKG_NAME }}/* windows-x86/
+          rmdir windows-x86/${{ env.CV_X86_PKG_NAME }}
 
       # 编译
       - name: build
@@ -63,7 +72,7 @@ jobs:
           cp run-test.bat ${{ env.BIN_PKG_NAME }}/run-test.bat
           cp -r images ${{ env.BIN_PKG_NAME }}/images
           mv win-BIN-CPU-x64/install/bin ${{ env.BIN_PKG_NAME }}/win-BIN-CPU-x64
-          # mv win-BIN-CPU-Win32/install/bin ${{ env.BIN_PKG_NAME }}/win-BIN-CPU-Win32
+          mv win-BIN-CPU-Win32/install/bin ${{ env.BIN_PKG_NAME }}/win-BIN-CPU-Win32
           cp others/README-bin.txt ${{ env.BIN_PKG_NAME }}/README.txt
           7z a ${{ env.BIN_PKG_NAME }}.7z ${{ env.BIN_PKG_NAME }}
           # mkdir ${{ env.JNI_PKG_NAME }}
@@ -73,13 +82,13 @@ jobs:
           # 7z a ${{ env.JNI_PKG_NAME }}.7z ${{ env.JNI_PKG_NAME }}
           mkdir ${{ env.CLIB_PKG_NAME }}
           mv win-CLIB-CPU-x64/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-x64
-          # mv win-CLIB-CPU-Win32/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-Win32
+          mv win-CLIB-CPU-Win32/install ${{ env.CLIB_PKG_NAME }}/win-CLIB-CPU-Win32
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
           7z a ${{ env.CLIB_PKG_NAME }}.7z ${{ env.CLIB_PKG_NAME }}
           mkdir ${{ env.CSTATIC_PKG_NAME }}
           mv win-CSTATICLIB-CPU-x64/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATICLIB-CPU-x64
-          # mv win-CSTATICLIB-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATICLIB-CPU-Win32
-          cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
+          mv win-CSTATICLIB-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATICLIB-CPU-Win32
+          cp others/README-clib.txt ${{ env.CSTATIC_PKG_NAME }}/README.txt
           7z a ${{ env.CSTATIC_PKG_NAME }}.7z ${{ env.CSTATIC_PKG_NAME }}
 
       # 上传artifact
