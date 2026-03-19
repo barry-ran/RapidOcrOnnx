@@ -77,8 +77,8 @@ jobs:
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
           7z a ${{ env.CLIB_PKG_NAME }}.7z ${{ env.CLIB_PKG_NAME }}
           mkdir ${{ env.CSTATIC_PKG_NAME }}
-          mv win-CSTATIC-CPU-x64/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-x64
-          # mv win-CSTATIC-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATIC-CPU-Win32
+          mv win-CSTATICLIB-CPU-x64/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATICLIB-CPU-x64
+          # mv win-CSTATICLIB-CPU-Win32/install ${{ env.CSTATIC_PKG_NAME }}/win-CSTATICLIB-CPU-Win32
           cp others/README-clib.txt ${{ env.CLIB_PKG_NAME }}/README.txt
           7z a ${{ env.CSTATIC_PKG_NAME }}.7z ${{ env.CSTATIC_PKG_NAME }}
 
