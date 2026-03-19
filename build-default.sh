@@ -54,6 +54,8 @@ NUM_THREADS=1
 if [ $sysOS == "Darwin" ]; then
   #echo "I'm MacOS"
   NUM_THREADS=$(sysctl -n hw.ncpu)
+  echo "native build"
+  cmakeBuild "Release"
 elif [ $sysOS == "Linux" ]; then
   #echo "I'm Linux"
   NUM_THREADS=$(grep ^processor /proc/cpuinfo | wc -l)
